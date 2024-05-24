@@ -1,0 +1,15 @@
+#ignore files with db extension 
+*.db 
+
+#ignore files with log files 
+*.log 
+
+#ignore directories named target 
+
+/target/
+
+#ignore directories named nin 
+
+/bin/
+
+
