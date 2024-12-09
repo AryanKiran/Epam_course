@@ -1,0 +1,43 @@
+import re
+from collections import defaultdict
+
+def count_word_frequency(input_text):
+    words = re.findall(r'\b\w+\'?\w*\b', input_text.lower())
+    frequency = defaultdict(int)
+    for word in words:
+        frequency[word] += 1
+    
+    frequent_words = [(word.upper(), freq) for word, freq in frequency.items() if freq > 1]
+    frequent_words.sort(key=lambda x: (-x[1], x[0]))
+    return frequent_words
+
+def format_output(word_frequencies):
+    result = []
+    for word, freq in word_frequencies:
+        result.append(f"{freq}\n{word}")
+    return "\n".join(result)
+
+def process_input(input_text):
+    try:
+        word_frequencies = count_word_frequency(input_text)
+        if not word_frequencies:
+            return "No words with frequency greater than one found."
+        return format_output(word_frequencies)
+    except Exception as e:
+        return f"Error processing input: {str(e)}"
+
+test_cases = [
+    """Hello this is test. The test is successful. But, this is not the end.""",
+    """Every rose has its thorn
+Just like every night has its dawn
+Just like every cowboy sings his sad, sad song
+Every rose has its thorn
+Yeah, it does"""
+]
+
+for i, test in enumerate(test_cases, 1):
+    print(f"\nTest Case {i}:")
+    print("Input:")
+    print(test)
+    print("\nOutput:")
+    print(process_input(test))
